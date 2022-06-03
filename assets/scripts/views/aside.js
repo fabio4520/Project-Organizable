@@ -13,7 +13,7 @@ export const Aside = (function () {
       </li>
       <li data-value="closed" draggable="true">
         <i class="fa-solid fa-xmark"></i>
-        <a href="#trash">Closed Baords</a>
+        <a href="#trash">Closed Boards</a>
       </li>
       <li data-value="profile" draggable="true">
         <i class="fa-solid fa-circle-user"></i>

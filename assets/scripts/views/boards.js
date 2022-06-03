@@ -97,29 +97,28 @@ function listenToolTips() {
   });
 }
 
-  // function listenTrash() {
-  //   const container = document.querySelector(".js-boards");
-  //   if (!container) return;
-  //   container.addEventListener("click", (e) => {
-  //     const trashBins = container.querySelectorAll(".trash-trigger");
-  //     trashBins.forEach((trashBin) => {
-  //       if (trashBin === e.target) {
-  //         e.preventDefault();
-  //         const parentboard = trashBin.closest(".board");
-  //         parentboard.classList.add("shrinkOut");
-  //         parentboard.addEventListener("animationend", (e) => {
-  //           Content.load(boardsPage);
-  //         });
-  //         STORE.boards = STORE.boards.map((board) => {
-  //           if (board.id === parentboard.dataset.id) {
-  //             return { ...board, deleted: true };
-  //           }
-  //           return board;
-  //         });
-  //       }
-  //     });
-  //   });
-  // }
+function listenClosed() {
+  const container = document.querySelector(".js-boards");
+  if (!container) return;
+  container.addEventListener("click", (e) => {
+    const closedBins = container.querySelectorAll(".closed-trigger");
+    closedBins.forEach( async (closedBin) => {
+      if (closedBin === e.target) {
+        e.preventDefault();
+        const parentboard = closedBin.closest(".board");
+        parentboard.classList.add("shrinkOut");
+        parentboard.addEventListener("animationend", (e) => {
+          DOMHandler.reload()
+        });
+        const id = parentboard.dataset.id;
+        STORE.closingBoard(id)
+        await editBoard(id, {closed: true })
+        console.log(STORE);
+        // await deleteBoard(id)
+      }
+    });
+  });
+}
 
 
 const BoardsPage = {
@@ -127,7 +126,7 @@ const BoardsPage = {
     return renderBoards();
   },
   addListeners() {
-    listenToolTips()
+    listenToolTips(), listenClosed()
   },
 };
 
