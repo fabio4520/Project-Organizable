@@ -1,15 +1,36 @@
-
-export function renderInput(type, id, placeholder, createError, divClass="mailBox", ...args) {
+export function renderInput({
+  label,
+  id,
+  name,
+  placeholder = "",
+  type,
+  required = false,
+  value = false,
+  icon,
+  error,
+}) {
   return `
-  <div class="${divClass} control">
-  <input
-    class="input ${createError ? "is-danger" : ""}"
-    type="${type ? type : "text" }"
-    ${args}
-    id="${id}"
-    name="${id}"
-    placeholder="${placeholder}"
-  />
+  <div class="input">
+    ${
+      label
+        ? `<label for="${id}" class="content-xs overline">${label}</label>`
+        : ""
+    }
+    <div class="input__container">
+      ${
+        icon
+      }
+      <input
+        type="${type ? type : "text"}"
+        placeholder="${placeholder}"
+        class="input__content"
+        id="${id}"
+        name="${name ? name : id}"
+        ${value ? `value="${value}"` : ""}
+        ${required ? "required" : ""}
+      />
+    </div>
+    ${error ? `<span class="input__error-message">${error}</span>` : ""}
   </div>
-  `
+  `;
 }
