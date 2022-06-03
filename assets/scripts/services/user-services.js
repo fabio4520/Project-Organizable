@@ -13,3 +13,14 @@ export async function showUser(id) {
   
   return user;
 }
+
+export async function editUser(
+  id,
+  payload = { last_name, first_name }
+) {
+  const { token, ...user } = await apiFetch("users/" + id, {
+    method: "PATCH",
+    body: payload,
+  });
+  return user;
+}

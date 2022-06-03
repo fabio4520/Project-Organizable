@@ -1,5 +1,5 @@
 import { login } from "./assets/scripts/services/session-services.js";
-import { createUser, showUser } from "./assets/scripts/services/user-services.js";
+import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
 
 const credentials = {
   username: "fabio",
@@ -16,8 +16,9 @@ async function random() {
 
   try {
     await login(credentials)
-    const user = await showUser(335)
-    console.log(user);    
+    // const user = await showUser(335)
+    // const user = await editUser(335, newUser)
+    // console.log(user);    
   } catch (error) {
     console.log(error);
   }
