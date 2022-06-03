@@ -1,6 +1,7 @@
 // import { loadContent } from "../utils.js";
 
 import STORE from "../store.js";
+import { listenLogout } from "../utils.js";
 
 export const Aside = (function () {
   const template = `
@@ -19,6 +20,7 @@ export const Aside = (function () {
         <a href="#trash">My Profile</a>
       </li>
     </ul>
+    <button id="logout-btn" class="button is-danger is-light is-small">logout</button>
   </aside>
   `;
 
@@ -53,7 +55,7 @@ export const Aside = (function () {
       return template;
     },
     addListeners() {
-      listenAsideClick();
+      listenAsideClick(), listenLogout();
     },
   };
 })();
