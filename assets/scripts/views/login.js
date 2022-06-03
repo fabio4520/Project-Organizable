@@ -1,7 +1,7 @@
 import { renderInput } from "../components/input.js"
 import DOMHandler from "../dom-handler.js";
 import { login } from "../services/session-services.js";
-// import SignupPage from "./signup.js";
+import SignupPage from "./signup.js";
 // import { HomePage } from "./home.js"
 // import STORE from "../store.js";
 
@@ -18,15 +18,24 @@ function renderLogin() {
   <form action="" class="form">
     <div class="formBody">
     <h2 class="titleSection">Login</h2>
-      ${renderInput("email", "email", "email", loginError)}        
-      ${renderInput(
-        "password",
-        "password",
-        "password",
-        loginError,
-        "passwordBox",
-        `minlength="6" required`
-      )}
+    ${renderInput({
+      label: "Username",
+      icon: `<i class="fa fa-user" aria-hidden="true"></i>`,
+      id: "username",
+      required: true,
+      placeholder: "username",
+      error: loginError
+    })}
+
+    ${renderInput({
+      label: "Password",
+      icon: `<i class="fas fa-key"></i>`,
+      id: "password",
+      required: true,
+      error: loginError,
+      type: "password",
+      placeholder: "******"
+    })}
       ${
         loginError
           ? `<p class="tag is-danger is-light"> 😨 ${loginError}</p>`
@@ -51,56 +60,57 @@ function renderLogin() {
   </main>`;
 }
 
-// function listenSignup() {
-//   const signupBtn = document.querySelector("#signup-btn")
-//   signupBtn.addEventListener("click", (event) => {
-//     event.preventDefault();
-//     DOMHandler.load(SignupPage);
-//     LoginPage.state.loginError = null;
-//   })
-//   const signupBtn2 = document.querySelector("#signup-btn2")
-//   signupBtn2.addEventListener("click", (event) => {
-//     event.preventDefault();
-//     DOMHandler.load(SignupPage);
-//     LoginPage.state.loginError = null;
-//   })
-// }
+function listenSignup() {
+  const signupBtn = document.querySelector("#signup-btn")
+  signupBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    DOMHandler.load(SignupPage);
+    LoginPage.state.loginError = null;
+  })
+  const signupBtn2 = document.querySelector("#signup-btn2")
+  signupBtn2.addEventListener("click", (event) => {
+    event.preventDefault();
+    DOMHandler.load(SignupPage);
+    LoginPage.state.loginError = null;
+  })
+}
 
-// function listenSubmit() {
-//   const form = document.querySelector(".form");
-//   form.addEventListener("submit", async (event) => {
-//     document.querySelector("#submit-btn").classList.toggle("is-loading");
-//     try {
-//       event.preventDefault();
-//       const { email, password } = event.target;
-//       const credentials = {
-//         email: email.value,
-//         password: password.value,
-//       };
-//       await login(credentials);
+function listenSubmit() {
+  const form = document.querySelector(".form");
+  form.addEventListener("submit", async (event) => {
+    document.querySelector("#submit-btn").classList.toggle("is-loading");
+    try {
+      event.preventDefault();
+      const { username, password } = event.target;
+      const credentials = {
+        username: username.value,
+        password: password.value,
+      };
+      const user = await login(credentials);
+      console.log(user);
 
-//       setTimeout(function () {
-//         // loadingPage();
-//         setTimeout(async () => {
-//           await STORE.fetchTasks();
-//           DOMHandler.load(HomePage);
-//         }, 500);
-//       }, 500);
-//     } catch (error) {
-//       LoginPage.state.loginError = error.message;
-//       setTimeout(function () {
-//         DOMHandler.reload();
-//       }, 1000);
-//     }
-//   });
-// }
+      setTimeout(function () {
+        // loadingPage();
+        setTimeout(async () => {
+          // await STORE.fetchTasks();
+          // DOMHandler.load(HomePage);
+        }, 500);
+      }, 500);
+    } catch (error) {
+      LoginPage.state.loginError = error.message;
+      setTimeout(function () {
+        DOMHandler.reload();
+      }, 1000);
+    }
+  });
+}
 
 const LoginPage = {
   toString() {
     return renderLogin();
   },
   addListeners() {
-    // return listenSignup(), listenSubmit();
+    return listenSignup(), listenSubmit();
   },
   state: {
     loginError: null,
