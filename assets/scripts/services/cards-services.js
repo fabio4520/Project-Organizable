@@ -7,12 +7,12 @@ export async function sortCards(
   return apiFetch(`lists/${idList}/cards/sort`, {body: body});
 }
 
-// export async function createList(
-//   idList,
-//   newList = { name }
-// ) {
-//   return apiFetch(`lists/${idList}/lists`, { body: newList });
-// }
+export async function createCard(
+  idList,
+  newList = { name }
+) {
+  return apiFetch(`lists/${idList}/cards`, { body: newList });
+}
 
 // export async function editList(
 //   idList,
