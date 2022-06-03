@@ -9,7 +9,7 @@ export async function login(credentials = { email, password }) {
 
 export async function logout() {
   try {
-    const data = await apiFetch("logout", { method: "DELETE" });
+    const data = await apiFetch("logout", { method: "POST" });
     sessionStorage.removeItem(tokenKey);
     return data;
   } catch (error) {

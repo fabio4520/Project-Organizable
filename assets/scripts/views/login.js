@@ -1,10 +1,9 @@
 import { renderInput } from "../components/input.js"
 import DOMHandler from "../dom-handler.js";
 import { login } from "../services/session-services.js";
+import STORE from "../store.js";
 import { Layout } from "./main.js";
 import SignupPage from "./signup.js";
-// import { HomePage } from "./home.js"
-// import STORE from "../store.js";
 
 function renderLogin() {
   const { loginError } = LoginPage.state;
@@ -93,7 +92,7 @@ function listenSubmit() {
       setTimeout(function () {
         // loadingPage();
         setTimeout(async () => {
-          // await STORE.fetchTasks();
+          await STORE.fetchBoards();
           DOMHandler.load(Layout);
         }, 500);
       }, 500);
