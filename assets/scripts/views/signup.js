@@ -3,6 +3,7 @@ import DOMHandler from "../dom-handler.js";
 import LoginPage from "./login.js";
 import { login } from "../services/session-services.js";
 import { createUser } from "../services/user-services.js";
+import { Layout } from "./main.js";
 // import { HomePage } from "./home.js";
 // import STORE from "../store.js";
 
@@ -125,7 +126,7 @@ function listenSubmit() {
         // loadingPage();
         setTimeout(async () => {
           // await STORE.fetchTasks();
-          // DOMHandler.load(HomePage);
+          DOMHandler.load(Layout);
         }, 500);
       }, 500);
     } catch (error) {
