@@ -20,11 +20,40 @@ function renderSignup() {
   <div class="formBody">
   <h2 class="titleSection">Sign up</h2>
     ${renderInput({
-      label: "Username",
+      label: "USERNAME",
       icon: `<i class="fa fa-user" aria-hidden="true"></i>`,
       id: "username",
       required: true,
-      placeholder: "username",
+      placeholder: "Ironman",
+      error: SignupError
+    })}
+    
+    ${renderInput({
+      label: "EMAIL",
+      icon: `<i class="fa fa-envelope" aria-hidden="true"></i>`,
+      id: "email",
+      required: true,
+      placeholder: "tony_stark@mail.com",
+      error: SignupError
+    })}
+
+
+    ${renderInput({
+      label: "FIRST NAME",
+      icon: `<i class="fa-solid fa-book-open"></i>`,
+      id: "firstName",
+      required: true,
+      placeholder: "Tony",
+      error: SignupError
+    })}
+
+
+    ${renderInput({
+      label: "LAST NAME",
+      icon: `<i class="fa-solid fa-book-open"></i>`,
+      id: "lastName",
+      required: true,
+      placeholder: "Stark",
       error: SignupError
     })}
 
