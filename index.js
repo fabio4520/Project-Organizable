@@ -1,5 +1,5 @@
 import { createBoard, deleteBoard, editBoard, getBoards, showBoard } from "./assets/scripts/services/boards-services.js";
-import { createCard, showCard, sortCards } from "./assets/scripts/services/cards-services.js";
+import { createCard, editCard, showCard, sortCards } from "./assets/scripts/services/cards-services.js";
 import { createList, deleteList, editList, sortLists } from "./assets/scripts/services/lists-services.js";
 import { login } from "./assets/scripts/services/session-services.js";
 import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
@@ -25,6 +25,9 @@ const newList = {
 const newCard = {
   name: "Un bellaqueo bien Nasty"
 }
+const newCard2 = {
+  name: "El 🍑 real pero las 🍩🍩 son plastic"
+}
 async function random() {
 
   try {
@@ -36,7 +39,8 @@ async function random() {
     // const card = await createCard(380, newCard)
     // const card = await deleteCard(746, 387)
     // const card = await showCard(379, 555)
-    // console.log(card);
+    const card = await editCard(379, newCard2, 555)
+    console.log(card);
   } catch (error) {
     console.log(error);
   }

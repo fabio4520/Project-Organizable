@@ -21,17 +21,17 @@ export async function showCard(
   return apiFetch(`/lists/${idList}/cards/${idCard}`)
 }
 
-// export async function editList(
-//   idList,
-//   payload = { name },
-//   idList
-// ) {
-//   const { token, ...user } = await apiFetch(`lists/${idList}/lists/${idList}`, {
-//     method: "PATCH",
-//     body: payload,
-//   });
-//   return user;
-// }
+export async function editCard(
+  idList,
+  payload = { name, list_id, pos },
+  idCard
+) {
+  const { token, ...card } = await apiFetch(`lists/${idList}/cards/${idCard}`, {
+    method: "PATCH",
+    body: payload,
+  });
+  return card;
+}
 
 // export async function deleteList(
 //   idList,
