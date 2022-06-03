@@ -1,3 +1,4 @@
+import { getBoards } from "./assets/scripts/services/boards-services.js";
 import { login } from "./assets/scripts/services/session-services.js";
 import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
 
@@ -16,9 +17,9 @@ async function random() {
 
   try {
     await login(credentials)
-    // const user = await showUser(335)
-    // const user = await editUser(335, newUser)
-    // console.log(user);    
+    const boards = await getBoards()
+    // const board = await editBoard(335, newUser)
+    console.log(boards);
   } catch (error) {
     console.log(error);
   }
