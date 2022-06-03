@@ -10,7 +10,7 @@ function renderLogin() {
   return `
   <header class="container is-max-desktop">
   <a class="navbar-item" href="../../index.html">
-    <h1>📕 Contacts App</h1>
+    <h1>{ Organizable }</h1>
   </a>
   </header>
   <main class="container is-max-desktop">
