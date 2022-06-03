@@ -19,7 +19,7 @@ function renderLogin() {
     <div class="formBody">
     <h2 class="titleSection">Login</h2>
     ${renderInput({
-      label: "Username",
+      label: "USERNAME",
       icon: `<i class="fa fa-user" aria-hidden="true"></i>`,
       id: "username",
       required: true,
@@ -28,7 +28,7 @@ function renderLogin() {
     })}
 
     ${renderInput({
-      label: "Password",
+      label: "PASSWORD",
       icon: `<i class="fas fa-key"></i>`,
       id: "password",
       required: true,
@@ -41,12 +41,12 @@ function renderLogin() {
           ? `<p class="tag is-danger is-light"> 😨 ${loginError}</p>`
           : ""
       }
-      <p>you don't have an account? <a id="signup-btn2" href="#">signup</a></p>
+      <p>you don't have an account? <a id="signup-btn2" href="#">Create Account</a></p>
     </div>
 
     <div class="linksFooter field">
       <div class="control">
-        <a id="signup-btn" class="button is-link is-light">Signup</a>
+        <a id="signup-btn" class="button is-link is-light">Create Account</a>
       </div>
       <div class="control">
         <button
