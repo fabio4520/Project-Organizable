@@ -24,3 +24,7 @@ export async function editUser(
   });
   return user;
 }
+
+export async function deleteUser(id) {
+  return apiFetch("users/" + id, { method: "DELETE" });
+}
