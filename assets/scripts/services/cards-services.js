@@ -14,6 +14,13 @@ export async function createCard(
   return apiFetch(`lists/${idList}/cards`, { body: newList });
 }
 
+export async function showCard(
+  idList,
+  idCard
+) {
+  return apiFetch(`/lists/${idList}/cards/${idCard}`)
+}
+
 // export async function editList(
 //   idList,
 //   payload = { name },
