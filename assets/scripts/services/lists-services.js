@@ -4,17 +4,18 @@ export async function sortLists(
   idBoard,
   body = { ids: [] }
 ) {
-  return apiFetch(`/boards/${idBoard}/lists/sort`, {body: body});
+  return apiFetch(`boards/${idBoard}/lists/sort`, {body: body});
+}
+
+export async function createList(
+  idBoard,
+  newList = { name }
+) {
+  return apiFetch(`boards/${idBoard}/lists`, { body: newList });
 }
 
 // export async function showBoard(id) {
 //   return apiFetch("boards/" + id);
-// }
-
-// export async function createBoard(
-//   newBoard = { name, color }
-// ) {
-//   return apiFetch("boards", { body: newBoard });
 // }
 
 // export async function editBoard(
