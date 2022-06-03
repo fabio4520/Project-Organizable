@@ -1,7 +1,7 @@
 import { tokenKey } from "./assets/scripts/config.js";
 import DOMHandler from "./assets/scripts/dom-handler.js";
-// import { HomePage } from "./scripts/pages/home.js";
 import LoginPage from "./assets/scripts/views/login.js";
+import { Layout } from "./assets/scripts/views/main.js";
 // import STORE from "./scripts/store.js";
 
 async function init() {
@@ -11,7 +11,7 @@ async function init() {
     if (!token) throw new Error();
 
     // await STORE.fetchTasks();
-    // DOMHandler.load(HomePage);
+    DOMHandler.load(Layout);
   } catch (error) {
     console.log(error);
     sessionStorage.removeItem(tokenKey);
