@@ -26,6 +26,9 @@ export async function editList(
   return user;
 }
 
-// export async function deleteBoard(id) {
-//   return apiFetch("boards/" + id, { method: "DELETE" });
-// }
+export async function deleteList(
+  idBoard,
+  idList
+) {
+  return apiFetch(`boards/${idBoard}/lists/${idList}`, { method: "DELETE" });
+}
