@@ -14,20 +14,17 @@ export async function createList(
   return apiFetch(`boards/${idBoard}/lists`, { body: newList });
 }
 
-// export async function showBoard(id) {
-//   return apiFetch("boards/" + id);
-// }
-
-// export async function editBoard(
-//   id,
-//   payload = { name, color }
-// ) {
-//   const { token, ...user } = await apiFetch("boards/" + id, {
-//     method: "PATCH",
-//     body: payload,
-//   });
-//   return user;
-// }
+export async function editList(
+  idBoard,
+  payload = { name },
+  idList
+) {
+  const { token, ...user } = await apiFetch(`boards/${idBoard}/lists/${idList}`, {
+    method: "PATCH",
+    body: payload,
+  });
+  return user;
+}
 
 // export async function deleteBoard(id) {
 //   return apiFetch("boards/" + id, { method: "DELETE" });

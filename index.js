@@ -1,5 +1,5 @@
 import { createBoard, deleteBoard, editBoard, getBoards, showBoard } from "./assets/scripts/services/boards-services.js";
-import { createList, sortLists } from "./assets/scripts/services/lists-services.js";
+import { createList, editList, sortLists } from "./assets/scripts/services/lists-services.js";
 import { login } from "./assets/scripts/services/session-services.js";
 import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
 
@@ -19,7 +19,7 @@ const newBoard = {
   color: "blue"
 }
 const newList = {
-  name: "antologia 2.0"
+  name: "El ga-ti-to tuyo te perdió por negligencia"
 }
 async function random() {
 
@@ -27,7 +27,7 @@ async function random() {
     await login(credentials)
     // const lists = await sortLists(746, { "ids": [380, 379, 381] })
     // console.log(lists);
-    // const list = await createList(746, newList)
+    // const list = await editList(746, newList, 379)
     // console.log(list);
   } catch (error) {
     console.log(error);
