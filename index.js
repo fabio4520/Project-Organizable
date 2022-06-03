@@ -1,4 +1,5 @@
 import { createBoard, deleteBoard, editBoard, getBoards, showBoard } from "./assets/scripts/services/boards-services.js";
+import { sortLists } from "./assets/scripts/services/lists-services.js";
 import { login } from "./assets/scripts/services/session-services.js";
 import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
 
@@ -21,13 +22,8 @@ async function random() {
 
   try {
     await login(credentials)
-    const boards = await getBoards()
-    console.log(boards);
-    // const board = await showBoard(746)
-    // const board = await createBoard(newBoard)
-    // const board = await editBoard(770, newBoard)
-    // const content = await deleteBoard(771);
-    // console.log(content);
+    const lists = await sortLists(746, { "ids": [380, 379, 381] })
+    console.log(lists);
   } catch (error) {
     console.log(error);
   }
