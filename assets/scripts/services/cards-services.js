@@ -33,9 +33,9 @@ export async function editCard(
   return card;
 }
 
-// export async function deleteList(
-//   idList,
-//   idList
-// ) {
-//   return apiFetch(`lists/${idList}/lists/${idList}`, { method: "DELETE" });
-// }
+export async function deleteCard(
+  idList,
+  idCard
+) {
+  return apiFetch(`lists/${idList}/cards/${idCard}`, { method: "DELETE" });
+}
