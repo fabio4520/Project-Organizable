@@ -24,3 +24,7 @@ export async function editBoard(
   });
   return user;
 }
+
+export async function deleteBoard(id) {
+  return apiFetch("boards/" + id, { method: "DELETE" });
+}
