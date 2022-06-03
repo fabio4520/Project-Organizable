@@ -1,4 +1,4 @@
-import { createBoard, getBoards, showBoard } from "./assets/scripts/services/boards-services.js";
+import { createBoard, editBoard, getBoards, showBoard } from "./assets/scripts/services/boards-services.js";
 import { login } from "./assets/scripts/services/session-services.js";
 import { createUser, editUser, showUser } from "./assets/scripts/services/user-services.js";
 
@@ -14,17 +14,18 @@ const newUser = {
 	password: "123456"
 }
 const newBoard = {
-  name: "fiu fiu",
-  color: "red"
+  name: "fiu fiuuuuu",
+  color: "blue"
 }
 async function random() {
 
   try {
     await login(credentials)
-    // const boards = await getBoards()
+    const boards = await getBoards()
     // const board = await showBoard(746)
-    const board = await createBoard(newBoard)
-    console.log(board);
+    // const board = await createBoard(newBoard)
+    // const board = await editBoard(770, newBoard)
+    console.log(boards);
   } catch (error) {
     console.log(error);
   }

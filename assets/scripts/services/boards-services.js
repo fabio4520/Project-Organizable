@@ -13,3 +13,14 @@ export async function createBoard(
 ) {
   return apiFetch("boards", { body: newBoard });
 }
+
+export async function editBoard(
+  id,
+  payload = { name, color }
+) {
+  const { token, ...user } = await apiFetch("boards/" + id, {
+    method: "PATCH",
+    body: payload,
+  });
+  return user;
+}
