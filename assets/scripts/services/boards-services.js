@@ -7,3 +7,9 @@ export async function getBoards() {
 export async function showBoard(id) {
   return apiFetch("boards/" + id);
 }
+
+export async function createBoard(
+  newBoard = { name, color }
+) {
+  return apiFetch("boards", { body: newBoard });
+}
