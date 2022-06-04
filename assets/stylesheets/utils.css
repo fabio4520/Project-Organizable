@@ -4,3 +4,11 @@
   transform: translateY(10px);
   z-index: -1;
 }
+.goodbye {
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  }
