@@ -34,6 +34,12 @@ function restoringBoard(id) {
   this.closed = this.closed.filter(c => c.id != id);
 }
 
+function staringBoard(id) {
+  this.starred.push(this.boards.find( b => b.id == id ))
+  // elimino el board close del array closed.
+  this.boards = this.boards.filter(b => b.id != id);
+}
+
 const STORE = {
   currentPage: localStorage.getItem(currPage) || "boards",
   currentUser: JSON.parse(localStorage.getItem(currUser)),
@@ -44,6 +50,7 @@ const STORE = {
   deleteBoard,
   closingBoard,
   restoringBoard,
-  changeColor
+  changeColor,
+  staringBoard
 }
 export default STORE

@@ -5,6 +5,13 @@ import { renderToolTip } from "../utils.js";
 
 function renderBoard(board, isClosed) {
   let footer = `<footer>
+    
+    <div class="starred">
+      <a class="star-trigger" href="#starred">
+        <i class="fas fa-star"></i>
+      </a>
+    </div>
+
     ${renderToolTip()}
     <div class="closed">
       <a class="closed-trigger" href="#closed">
@@ -38,7 +45,7 @@ function renderBoards() {
   const boards = STORE.boards
   const starred = STORE.starred
   console.log(STORE);
-  if (boards.length === 0)
+  if (boards.length === 0 && starred.length ===0)
     return `
     <div class="boards boards--no-content"><h2>No boards to keep</h2></div>`;
   if (starred.length != 0) {
@@ -135,19 +142,36 @@ function listenClosed() {
         const id = parentboard.dataset.id;
         STORE.closingBoard(id)
         await editBoard(id, {closed: true, starred: false })
-        console.log(STORE);
       }
     });
   });
 }
 
+function listenStar() {
+  const starredList = document.querySelectorAll(".star-trigger")
+  starredList.forEach(star => {
+    star.addEventListener('click', async (event) => {
+      event.preventDefault()
+      const parentboard = star.closest(".board");
+      parentboard.addEventListener("animationend", (e) => {
+        DOMHandler.reload()
+      });
+      const id = parentboard.dataset.id;
+      STORE.staringBoard(id)
+      await editBoard(id, {starred: true })
+      console.log(STORE);
+      window.location.reload();
+        return false
+    })
+  } )
+}
 
 const BoardsPage = {
   toString() {
     return renderBoards();
   },
   addListeners() {
-    listenToolTips(), listenClosed()
+    listenToolTips(), listenClosed(), listenStar()
   },
 };
 
