@@ -48,7 +48,7 @@ function renderBoards() {
     return `
     <h2>My boards</h2>
     <h3>Starred Boards</h3>
-    <div class="boards js-boards">
+    <div class="boards js-boards-starred">
       <ul>
         ${starred
           .map((board) => renderBoard(board))

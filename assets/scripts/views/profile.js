@@ -85,59 +85,69 @@ function renderProfile() {
 
 function listenDelete () {
   const delBtn = document.querySelector("#delete-btn")
-  delBtn.addEventListener("click", async (event) => {
-    try {
-      delBtn.classList.toggle("is-loading")
-      event.preventDefault();
-      const id = STORE.currentUser.id
-      await deleteUser(id)
-      STORE.currentUser = null
-      setTimeout(function () {
-        goodByePage();
-        setTimeout(() => {
-          DOMHandler.load(LoginPage);
-        }, 1000);
-      }, 500); 
-    } catch (error) {
-      console.log(error);
-    }
-  })
+  try {
+    delBtn.addEventListener("click", async (event) => {
+      try {
+        delBtn.classList.toggle("is-loading")
+        event.preventDefault();
+        const id = STORE.currentUser.id
+        await deleteUser(id)
+        STORE.currentUser = null
+        setTimeout(function () {
+          goodByePage();
+          setTimeout(() => {
+            DOMHandler.load(LoginPage);
+          }, 1000);
+        }, 500); 
+      } catch (error) {
+        console.log(error);
+      }
+    })
+  } catch (error) {
+    // console.log(error);
+  }
+
 }
 
 function listenUpdate() {
-  const form = document.querySelector(".form");
-  form.addEventListener("submit", async (event) => {
-    document.querySelector("#submit-btn").classList.toggle("is-loading");
-    try {
-      event.preventDefault();
-      // const { username, email, first_name, last_name } = event.target; // is not working
-      const credentials = {
-        username: event.target.username.value,
-        email: event.target.email.value,
-        first_name: event.target.firstName.value,
-        last_name: event.target.lastName.value
-      };
-      const id = STORE.currentUser.id;
-      STORE.currentUser = { 
-        id: id,
-        username: credentials.username,
-        email: credentials.email,
-        firstName: credentials.first_name,
-        lastName: credentials.last_name
-      }
-      
-      console.log(STORE.currentUser);
-      await editUser(id, credentials);
-      ProfilePage.state.EditSuccess = true
-      DOMHandler.reload();
+  try {
+    const form = document.querySelector(".form");
+    form.addEventListener("submit", async (event) => {
+      document.querySelector("#submit-btn").classList.toggle("is-loading");
+      try {
+        event.preventDefault();
+        // const { username, email, first_name, last_name } = event.target; // is not working
+        const credentials = {
+          username: event.target.username.value,
+          email: event.target.email.value,
+          first_name: event.target.firstName.value,
+          last_name: event.target.lastName.value
+        };
+        const id = STORE.currentUser.id;
+        STORE.currentUser = { 
+          id: id,
+          username: credentials.username,
+          email: credentials.email,
+          firstName: credentials.first_name,
+          lastName: credentials.last_name
+        }
 
-    } catch (error) {
-      ProfilePage.state.EditError = error.message;
-      setTimeout(function () {
+        console.log(STORE.currentUser);
+        await editUser(id, credentials);
+        ProfilePage.state.EditSuccess = true
         DOMHandler.reload();
-      }, 800);
-    }
-  });
+
+      } catch (error) {
+        ProfilePage.state.EditError = error.message;
+        setTimeout(function () {
+          DOMHandler.reload();
+        }, 800);
+      }
+    });
+  } catch (error) {
+    // console.log(error);
+  }
+  
 }
 
 const ProfilePage = {

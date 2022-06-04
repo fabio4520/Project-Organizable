@@ -50,8 +50,8 @@ const Layout =  {
   addListeners() {
     Aside.addListeners();
     BoardsPage.addListeners();
-    // ClosedPage.addListeners();
-    // ProfilePage.addListeners();
+    ClosedPage.addListeners();
+    ProfilePage.addListeners();
   },
 }
 
