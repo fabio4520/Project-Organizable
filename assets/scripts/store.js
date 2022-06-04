@@ -15,7 +15,7 @@ function changeColor(id, type, color) {
 
 function deleteBoard(id) {
   this.boards = this.boards.filter( b => b.id != id);
-  this.closed = this.boards.filter( c => c.id != id);
+  this.closed = this.closed.filter( c => c.id != id);
 }
 function closingBoard(id) {
   // hago un push del board que quiero hacer close
@@ -31,7 +31,7 @@ function restoringBoard(id) {
 }
 
 const STORE = {
-  currentPage: "boards",
+  currentPage: "closed",
   currentUser: null,
   boards: [],
   closed: [],
