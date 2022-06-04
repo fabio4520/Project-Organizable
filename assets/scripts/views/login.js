@@ -87,6 +87,7 @@ function listenSubmit() {
         password: password.value,
       };
       const user = await login(credentials);
+      STORE.currentUser = user
       console.log(user);
 
       setTimeout(function () {
