@@ -1,3 +1,4 @@
+import { currUser } from "./config.js";
 import { getBoards } from "./services/boards-services.js";
 
 
@@ -31,8 +32,8 @@ function restoringBoard(id) {
 }
 
 const STORE = {
-  currentPage: "closed",
-  currentUser: null,
+  currentPage: "profile",
+  currentUser: JSON.parse(localStorage.getItem(currUser)),
   boards: [],
   closed: [],
   fetchBoards,
@@ -40,6 +41,5 @@ const STORE = {
   closingBoard,
   restoringBoard,
   changeColor
-
 }
 export default STORE

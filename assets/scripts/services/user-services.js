@@ -1,4 +1,4 @@
-import { tokenKey } from "../config.js"
+import { currUser, tokenKey } from "../config.js"
 import apiFetch from "./api-fetch.js"
 
 export async function createUser(credentials = { email, password }) {
@@ -22,6 +22,7 @@ export async function editUser(
     method: "PATCH",
     body: payload,
   });
+  localStorage.setItem(currUser, JSON.stringify(user))
   return user;
 }
 

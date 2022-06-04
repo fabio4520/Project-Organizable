@@ -1,4 +1,4 @@
-import { tokenKey } from "./assets/scripts/config.js";
+import { currUser, tokenKey } from "./assets/scripts/config.js";
 import DOMHandler from "./assets/scripts/dom-handler.js";
 import STORE from "./assets/scripts/store.js";
 import LoginPage from "./assets/scripts/views/login.js";
@@ -15,6 +15,7 @@ async function init() {
   } catch (error) {
     console.log(error);
     sessionStorage.removeItem(tokenKey);
+    localStorage.removeItem(currUser)
     DOMHandler.load(LoginPage);
   }
 }
