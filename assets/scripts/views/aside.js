@@ -26,7 +26,7 @@ export const Aside = (function () {
         <a href="#trash">My Profile</a>
       </li>
     </ul>
-    <button id="logout-btn" class="button is-danger is-light is-small">logout</button>
+    <button id="logout-btn" class="button is-danger is-light is-medium">logout</button>
   </aside>
   `;
 

@@ -46,7 +46,6 @@ function listenRestore() {
   const container = document.querySelector(".js-boards");
   if (!container) return;
   container.addEventListener("click", (e) => {
-    console.log(e);
     const restoreArrows = container.querySelectorAll(".restore-trigger");
     restoreArrows.forEach(async (restoreArrow) => {
       if (restoreArrow === e.target) {
