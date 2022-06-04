@@ -14,15 +14,16 @@ function renderBoard(board, isClosed) {
   </footer>`;
 
   if (isClosed) {
-    footer = `<footer>
+    footer = `
+    <footer>
+    <div class="restore">
+      <a class="restore-trigger" href="#restore">
+      <i class="ri-arrow-go-back-fill"></i>
+      </a>
+    </div>
       <div class="delete">
         <a class="delete-trigger" href="#delete">
           <i class="ri-delete-bin-fill"></i>
-        </a>
-      </div>
-      <div class="restore">
-        <a class="restore-trigger" href="#restore">
-        <i class="ri-arrow-go-back-fill"></i>
         </a>
       </div>
     </footer>`;
@@ -114,7 +115,6 @@ function listenClosed() {
         STORE.closingBoard(id)
         await editBoard(id, {closed: true })
         console.log(STORE);
-        // await deleteBoard(id)
       }
     });
   });
