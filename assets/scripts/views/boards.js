@@ -39,11 +39,35 @@ function renderBoard(board, isClosed) {
 
 function renderBoards() {
   const boards = STORE.boards
+  const starred = STORE.starred
+  console.log(STORE);
   if (boards.length === 0)
     return `
     <div class="boards boards--no-content"><h2>No boards to keep</h2></div>`;
+  if (starred.length != 0) {
+    return `
+    <h2>My boards</h2>
+    <h3>Starred Boards</h3>
+    <div class="boards js-boards">
+      <ul>
+        ${starred
+          .map((board) => renderBoard(board))
+          .join("")}
+      </ul>
+    </div>
+    <h3>Boards</h3>
+    <div class="boards js-boards">
+      <ul>
+        ${boards
+          .map((board) => renderBoard(board))
+          .join("")}
+      </ul>
+    </div>
+    `
+  }
   return `
   <h2>My boards</h2>
+  <h3>Boards</h3>
   <div class="boards js-boards">
     <ul>
       ${boards
@@ -113,7 +137,7 @@ function listenClosed() {
         });
         const id = parentboard.dataset.id;
         STORE.closingBoard(id)
-        await editBoard(id, {closed: true })
+        await editBoard(id, {closed: true, starred: false })
         console.log(STORE);
       }
     });
