@@ -23,8 +23,7 @@ function renderLogin() {
       icon: `<i class="fa fa-user" aria-hidden="true"></i>`,
       id: "username",
       required: true,
-      placeholder: "username",
-      error: loginError
+      placeholder: "username"
     })}
 
     ${renderInput({
@@ -32,13 +31,12 @@ function renderLogin() {
       icon: `<i class="fas fa-key"></i>`,
       id: "password",
       required: true,
-      error: loginError,
       type: "password",
       placeholder: "******"
     })}
       ${
         loginError
-          ? `<p class="tag is-danger is-light"> 😨 ${loginError}</p>`
+          ? `<p class="tag is-danger is-light"> 😨 ${loginError} 😵</p>`
           : ""
       }
       <p>you don't have an account? <a id="signup-btn2" href="#">Create Account</a></p>
@@ -87,6 +85,7 @@ function listenSubmit() {
         password: password.value,
       };
       const user = await login(credentials);
+      STORE.currentUser = user
       console.log(user);
 
       setTimeout(function () {

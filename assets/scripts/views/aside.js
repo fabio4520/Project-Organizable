@@ -1,21 +1,27 @@
 // import { loadContent } from "../utils.js";
 
+import { currPage } from "../config.js";
+import DOMHandler from "../dom-handler.js";
 import STORE from "../store.js";
 import { listenLogout } from "../utils.js";
 
 export const Aside = (function () {
+  let a = STORE.currentPage
+  console.log(STORE.currentPage);
   const template = `
   <aside class="aside">
     <ul>
-      <li data-value="boards" class="selected" draggable="true">
+      <li data-value="boards" class="
+        ${a == "boards" ? "selected" : ""}
+      " draggable="true">
         <i class="fa-solid fa-layer-group"></i>
         <a href="#notes">My Boards</a>
       </li>
-      <li data-value="closed" draggable="true">
+      <li data-value="closed" class="${a == "closed" ? "selected" : ""}" draggable="true">
         <i class="fa-solid fa-xmark"></i>
         <a href="#trash">Closed Boards</a>
       </li>
-      <li data-value="profile" draggable="true">
+      <li data-value="profile"  class="${a == "profile" ? "selected" : ""}" draggable="true">
         <i class="fa-solid fa-circle-user"></i>
         <a href="#trash">My Profile</a>
       </li>
@@ -24,28 +30,15 @@ export const Aside = (function () {
   </aside>
   `;
 
-  // anado y elimino la clase 'selected' dependiendo de si es notes o trash
-  function setSelectedAsideItem() {
-    const items = document.querySelectorAll(".aside li");
-    const selectedItem = Array.from(items).find(
-      (item) => item.dataset.value === STORE.currentSection
-    );
-    items.forEach((item) => item.classList.remove("selected"));
-    selectedItem.classList.add("selected");
-  }
-  // selecciono todos los <a></a> de mi lista, luego prevengo su accion
-  // extraigo si es data-value = 'notes' o 'trash' => STORE.currentSection
-  // ejecuto la funcion de arriba.
-  // cargo el contenido.
   function listenAsideClick() {
     const anchors = document.querySelectorAll(".aside a");
     anchors.forEach((anchor) => {
       anchor.addEventListener("click", (e) => {
         e.preventDefault();
-        STORE.currentSection = anchor.closest("li").dataset.value;
-        console.log(STORE.currentSection);
-        setSelectedAsideItem();
-        // loadContent();
+        STORE.currentPage = anchor.closest("li").dataset.value;
+        localStorage.setItem(currPage, STORE.currentPage)
+        window.location.reload();
+          return false
       });
     });
   }

@@ -119,6 +119,7 @@ function listenSubmit() {
 
       await createUser(credentials);
       const currUser = await login(credentials);
+      STORE.currentUser = currUser
       console.log(currUser);
 
       setTimeout(function () {

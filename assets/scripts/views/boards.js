@@ -14,15 +14,16 @@ function renderBoard(board, isClosed) {
   </footer>`;
 
   if (isClosed) {
-    footer = `<footer>
+    footer = `
+    <footer>
+    <div class="restore">
+      <a class="restore-trigger" href="#restore">
+      <i class="ri-arrow-go-back-fill"></i>
+      </a>
+    </div>
       <div class="delete">
         <a class="delete-trigger" href="#delete">
           <i class="ri-delete-bin-fill"></i>
-        </a>
-      </div>
-      <div class="restore">
-        <a class="restore-trigger" href="#restore">
-        <i class="ri-arrow-go-back-fill"></i>
         </a>
       </div>
     </footer>`;
@@ -38,11 +39,35 @@ function renderBoard(board, isClosed) {
 
 function renderBoards() {
   const boards = STORE.boards
+  const starred = STORE.starred
+  console.log(STORE);
   if (boards.length === 0)
     return `
     <div class="boards boards--no-content"><h2>No boards to keep</h2></div>`;
+  if (starred.length != 0) {
+    return `
+    <h2>My boards</h2>
+    <h3>Starred Boards</h3>
+    <div class="boards js-boards-starred">
+      <ul>
+        ${starred
+          .map((board) => renderBoard(board))
+          .join("")}
+      </ul>
+    </div>
+    <h3>Boards</h3>
+    <div class="boards js-boards">
+      <ul>
+        ${boards
+          .map((board) => renderBoard(board))
+          .join("")}
+      </ul>
+    </div>
+    `
+  }
   return `
   <h2>My boards</h2>
+  <h3>Boards</h3>
   <div class="boards js-boards">
     <ul>
       ${boards
@@ -112,9 +137,8 @@ function listenClosed() {
         });
         const id = parentboard.dataset.id;
         STORE.closingBoard(id)
-        await editBoard(id, {closed: true })
+        await editBoard(id, {closed: true, starred: false })
         console.log(STORE);
-        // await deleteBoard(id)
       }
     });
   });

@@ -58,9 +58,9 @@
 
 .board footer {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 9px;
+  justify-content: flex-end;
+  /* align-items: center; */
+  gap: 10px;
 }
 .board-dragging {
   opacity: 0.4;
