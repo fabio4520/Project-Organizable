@@ -7,7 +7,7 @@ import { ProfilePage } from "./profile.js";
 
 function renderMain() {
   const template = `
-  
+
   <main class="main">
     <header class="header">
       <h1><img src="/assets/images/organizable.png" alt="Organizable" /></h1>
@@ -23,7 +23,7 @@ function renderMain() {
 }
 
 function renderContent(currentPage) {
-  console.log(currentPage);
+  // console.log(currentPage);
   let page = {};
   switch (currentPage) {
     case "boards":
@@ -39,6 +39,7 @@ function renderContent(currentPage) {
     default:
       break;
   }
+  console.log(page);
   return page
 }
 
@@ -49,8 +50,8 @@ const Layout =  {
   addListeners() {
     Aside.addListeners();
     BoardsPage.addListeners();
-    ClosedPage.addListeners();
-    ProfilePage.addListeners();
+    // ClosedPage.addListeners();
+    // ProfilePage.addListeners();
   },
 }
 
