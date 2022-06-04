@@ -21,11 +21,8 @@ function renderBoard(board, isClosed) {
       <i class="ri-arrow-go-back-fill"></i>
       </a>
     </div>
-      <div class="delete">
-        <a class="delete-trigger" href="#delete">
-          <i class="ri-delete-bin-fill"></i>
-        </a>
-      </div>
+    <button class="delete is-large delete-trigger"></button>
+     
     </footer>`;
   }
 
