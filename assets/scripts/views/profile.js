@@ -1,7 +1,9 @@
 import { renderInput } from "../components/input.js";
 import DOMHandler from "../dom-handler.js";
-import { editUser } from "../services/user-services.js";
+import { deleteUser, editUser } from "../services/user-services.js";
 import STORE from "../store.js";
+import goodByePage from "./goodByePage.js";
+import LoginPage from "./login.js";
 import { Layout } from "./main.js";
 
 let currentUser = STORE.currentUser;
@@ -74,11 +76,32 @@ function renderProfile() {
         
       </div>
       <div class="control">
-      <a id="update-btn" class="button is-danger is-light">Delete my account</a>
+      <a id="delete-btn" class="button is-danger is-light">Delete my account</a>
       </div>
     </div>
   </form>
     `;
+}
+
+function listenDelete () {
+  const delBtn = document.querySelector("#delete-btn")
+  delBtn.addEventListener("click", async (event) => {
+    try {
+      delBtn.classList.toggle("is-loading")
+      event.preventDefault();
+      const id = STORE.currentUser.id
+      await deleteUser(id)
+      STORE.currentUser = null
+      setTimeout(function () {
+        goodByePage();
+        setTimeout(() => {
+          DOMHandler.load(LoginPage);
+        }, 1000);
+      }, 500); 
+    } catch (error) {
+      console.log(error);
+    }
+  })
 }
 
 function listenUpdate() {
@@ -122,7 +145,7 @@ const ProfilePage = {
     return renderProfile();
   },
   addListeners() {
-    listenUpdate()
+    listenUpdate(), listenDelete()
   },
   state: {
     EditError: null,
