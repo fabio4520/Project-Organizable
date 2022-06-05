@@ -98,3 +98,19 @@
 .tooltip-option--pink {
   background-color: var(--pink);
 }
+.picker-grid{
+  max-width: 112px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.picker-div {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+.picker-div:hover{
+  transition: 0.7s ease;
+  transform: scale(1.05);
+  cursor: pointer;
+}
