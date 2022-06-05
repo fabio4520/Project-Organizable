@@ -3,6 +3,52 @@ import { editBoard } from "../services/boards-services.js";
 import STORE from "../store.js";
 import { renderToolTip } from "../utils.js";
 
+function renderModal() {
+  return `
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      
+      <div class="newBoard">
+      
+        <form class="form boardForm" style="background-color: green" action="">
+          <input id="boardName" class="boardName" type="text" placeholder="Board name">
+          <button id="createBtn" class="createBtn" type="submit">CREATE</button>
+        </form>
+
+        <div class="picker-grid">
+          <div class="picker-div" data-color="#90DBAF" style="background-color: #90DBAF"></div>
+          <div class="picker-div" data-color="#F77474" style="background-color: #F77474"></div>
+          <div class="picker-div" data-color="#60B5E5" style="background-color: #60B5E5"></div>
+
+          <div class="picker-div" data-color="#FFA759" style="background-color: #FFA759"></div>
+          <div class="picker-div" data-color="#C499EC" style="background-color: #C499EC"></div>
+          <div class="picker-div" data-color="#FABBD0" style="background-color: #FABBD0"></div>
+          
+          <div class="picker-div" data-color="#42D781" style="background-color: #42D781"></div>
+          <div class="picker-div" data-color="#BDBDBD" style="background-color: #BDBDBD"></div>
+          <div class="picker-div" data-color="#9DE0F9" style="background-color: #9DE0F9"></div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+  `
+}
+
+function listenModal() {
+  const cardForm = document.querySelector("#createBoard")
+  const closeBtn = document.querySelector(".close-btn")
+  cardForm.addEventListener('click', () => {
+    document.querySelector("#myModal").style.display = 'flex'
+  })
+  closeBtn.addEventListener('click', () => {
+    document.querySelector("#myModal").style.display = 'none'
+  })
+}
+
 function renderBoard(board, isClosed) {
   let footer = `<footer>
     
@@ -47,7 +93,8 @@ function renderBoards() {
   console.log(STORE);
   if (boards.length === 0 && starred.length ===0)
     return `
-    <div class="boards boards--no-content"><h2>No boards to keep</h2></div>`;
+    <div class="boards boards--no-content"><h2>No boards to keep</h2></div>
+    `;
   if (starred.length != 0) {
     return `
     <h2>My boards</h2>
@@ -65,6 +112,10 @@ function renderBoards() {
         ${boards
           .map((board) => renderBoard(board))
           .join("")}
+        <div id="createBoard" class="board is-flex is-justify-content-center is-align-items-center" style="background-color: var(--white)" draggable="true">
+          <h3>Create Board</h3>
+        </div>
+        ${renderModal()}
       </ul>
     </div>
     `
@@ -171,7 +222,7 @@ const BoardsPage = {
     return renderBoards();
   },
   addListeners() {
-    listenToolTips(), listenClosed(), listenStar()
+    listenToolTips(), listenClosed(), listenStar(), listenModal()
   },
 };
 
