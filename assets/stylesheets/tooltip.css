@@ -112,4 +112,5 @@
 .picker-div:hover{
   transition: 0.7s ease;
   transform: scale(1.05);
+  cursor: pointer;
 }

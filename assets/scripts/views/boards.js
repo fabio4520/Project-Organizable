@@ -1,5 +1,6 @@
+import { currPage } from "../config.js";
 import DOMHandler from "../dom-handler.js";
-import { editBoard } from "../services/boards-services.js";
+import { createBoard, editBoard } from "../services/boards-services.js";
 import STORE from "../store.js";
 import { renderToolTip } from "../utils.js";
 
@@ -12,24 +13,23 @@ function renderModal() {
       
       <div class="newBoard">
       
-        <form class="form boardForm" style="background-color: green" action="">
+        <form class="boardForm" action="">
           <input id="boardName" class="boardName" type="text" placeholder="Board name">
           <button id="createBtn" class="createBtn" type="submit">CREATE</button>
         </form>
 
         <div class="picker-grid">
-          <div class="picker-div" data-color="#90DBAF" style="background-color: #90DBAF"></div>
-          <div class="picker-div" data-color="#F77474" style="background-color: #F77474"></div>
-          <div class="picker-div" data-color="#60B5E5" style="background-color: #60B5E5"></div>
+          <div class="picker-div" data-color="green" style="background-color: green"></div>
+          <div class="picker-div" data-color="yellow" style="background-color: yellow"></div>
+          <div class="picker-div" data-color="orange" style="background-color: orange"></div>
 
-          <div class="picker-div" data-color="#FFA759" style="background-color: #FFA759"></div>
-          <div class="picker-div" data-color="#C499EC" style="background-color: #C499EC"></div>
-          <div class="picker-div" data-color="#FABBD0" style="background-color: #FABBD0"></div>
+          <div class="picker-div" data-color="red" style="background-color: red"></div>
+          <div class="picker-div" data-color="purple" style="background-color: purple"></div>
+          <div class="picker-div" data-color="blue" style="background-color: blue"></div>
           
-          <div class="picker-div" data-color="#42D781" style="background-color: #42D781"></div>
+          <div class="picker-div" data-color="#42D781"  style="background-color: #42D781"></div>
           <div class="picker-div" data-color="#BDBDBD" style="background-color: #BDBDBD"></div>
-          <div class="picker-div" data-color="#9DE0F9" style="background-color: #9DE0F9"></div>
-          
+          <div class="picker-div" data-color="#9DE0F9" style="background-color: #9DE0F9"></div>  
         </div>
       </div>
     </div>
@@ -37,16 +37,45 @@ function renderModal() {
   </div>
   `
 }
+// green yellow orange red purple blue
+function listenCreateBoard() {
+  const pickerDivs = document.querySelectorAll(".picker-div")
+  const form = document.querySelector(".boardForm")
+  let color;
+  pickerDivs.forEach(p => {
+    p.addEventListener('click', (e) => {
+      color = e.target.dataset.color
+      form.style.backgroundColor = color
+    })
+  })
+  // create board
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newBoard = {
+      name: e.target.boardName.value,
+      color: color
+    }
+    console.log(newBoard);
+    const newB = await createBoard(newBoard)
+    STORE.boards.push(newB)
+    DOMHandler.reload()
+  })
+}
 
 function listenModal() {
-  const cardForm = document.querySelector("#createBoard")
-  const closeBtn = document.querySelector(".close-btn")
-  cardForm.addEventListener('click', () => {
-    document.querySelector("#myModal").style.display = 'flex'
-  })
-  closeBtn.addEventListener('click', () => {
-    document.querySelector("#myModal").style.display = 'none'
-  })
+  try {
+    const cardForm = document.querySelector("#createBoard")
+    const closeBtn = document.querySelector(".close-btn")
+    cardForm.addEventListener('click', () => {
+      document.querySelector("#myModal").style.display = 'flex'
+    })
+    closeBtn.addEventListener('click', () => {
+      document.querySelector("#myModal").style.display = 'none'
+    })
+    listenCreateBoard()  
+  } catch (error) {
+    
+  }
 }
 
 function renderBoard(board, isClosed) {
@@ -128,6 +157,10 @@ function renderBoards() {
       ${boards
         .map((board) => renderBoard(board))
         .join("")}
+        <div id="createBoard" class="board is-flex is-justify-content-center is-align-items-center" style="background-color: var(--white)" draggable="true">
+          <h3>Create Board</h3>
+        </div>
+        ${renderModal()}
     </ul>
   </div>
     `;

@@ -59,6 +59,7 @@
   display:flex;
   flex-direction: column;
   justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.9);
 }
 
 .boardName {
@@ -67,6 +68,7 @@
   gap: 10px;
   height: 28px;
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 ::placeholder{
   color: #7a7a7a;
