@@ -1,4 +1,4 @@
-import { currPage, currUser } from "./config.js";
+import { currBoard, currPage, currUser } from "./config.js";
 import { getBoards } from "./services/boards-services.js";
 
 
@@ -43,6 +43,7 @@ function staringBoard(id) {
 const STORE = {
   currentPage: localStorage.getItem(currPage) || "boards",
   currentUser: JSON.parse(localStorage.getItem(currUser)),
+  currBoard: JSON.parse(localStorage.getItem(currBoard)),
   boards: [],
   closed: [],
   starred: [],

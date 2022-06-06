@@ -1,0 +1,68 @@
+.lists-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.list {
+  background-color: lightgray;
+  width: 280px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.header-list {
+  display: flex;
+  justify-content: space-between;
+  padding-block-end: 10px;
+}
+.cards-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+}
+/* Form */
+.form-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lightgray;
+  border-radius: 10px;
+  width: 280px;
+  height: 50px;
+}
+
+.form-card{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-block-start: 8px;
+}
+.form-card, .form-list input {
+  width: 226px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 0px;
+}
+.form-card, .form-list i {
+  color: #757575;
+  font-size: 1.5rem;
+}
+.form-card, .form-list i:hover {
+  transform: scale(1.1);
+  transition: 0.5s ease;
+}
+.form-btn {
+  background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	outline: inherit;
+}
