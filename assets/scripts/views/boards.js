@@ -1,8 +1,9 @@
-import { currPage } from "../config.js";
+import { currBoard, currPage } from "../config.js";
 import DOMHandler from "../dom-handler.js";
-import { createBoard, editBoard } from "../services/boards-services.js";
+import { createBoard, editBoard, showBoard } from "../services/boards-services.js";
 import STORE from "../store.js";
 import { renderToolTip } from "../utils.js";
+import singleBoardPage from "./boardPage.js";
 
 function renderModal() {
   return `
@@ -250,12 +251,32 @@ function listenStar() {
   } )
 }
 
+function listenBoard() {
+  const boardsAll = document.querySelectorAll(".board")
+  boardsAll.forEach( b => {
+    b.addEventListener('click', async e => {
+      e.preventDefault();
+      const boardId = e.target.closest(".board").dataset.id
+      const currentBoard = await showBoard(boardId)
+      STORE.currBoard = currentBoard;
+      console.log(STORE);
+      localStorage.setItem(currBoard, JSON.stringify(currentBoard))
+      // console.log(currBoard);
+      DOMHandler.load(singleBoardPage)
+    })
+  } )
+}
+
 const BoardsPage = {
   toString() {
     return renderBoards();
   },
   addListeners() {
-    listenToolTips(), listenClosed(), listenStar(), listenModal()
+    listenToolTips(),
+      listenClosed(),
+      listenStar(),
+      listenModal(),
+      listenBoard()
   },
 };
 
