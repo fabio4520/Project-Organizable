@@ -1,9 +1,11 @@
 import { currBoard } from "../config.js";
 import DOMHandler from "../dom-handler.js";
+import { createCard, deleteCard } from "../services/cards-services.js";
 import { createList, deleteList } from "../services/lists-services.js";
 import STORE from "../store.js";
 import { Layout } from "./main.js";
 
+// Renders
 function renderSingleBoard() {
   const board = STORE.currBoard
   const lists = board.lists
@@ -42,20 +44,41 @@ function renderList(list) {
     </div>
     
     <form action="" class="form-card">
-      <input type="text" placeholder="new card">
-      <i class="fa-solid fa-circle-plus"></i>
+      <input type="text" id="cardName" placeholder="new card">
+      <button type="submit" class="form-btn">
+        <i class="fa-solid fa-circle-plus"></i>
+      </button>
     </form>
 
   </div>
   `
 }
+
 function renderCard(card) {
   return `
-  <div class="card">
+  <div class="card" data-id=${card.cardId}>
     <p>${card.name}</p>
-    <a href="#deleteCard"><i class="fa-solid fa-trash-can"></i></a>
+    <a href="#deleteCard" class="delCard"><i class="fa-solid fa-trash-can"></i></a>
   </div>
   `
+}
+function listenDeleteCard() {
+  const allDelAnchor = document.querySelectorAll(".delCard")
+  allDelAnchor.forEach(a => {
+    a.addEventListener('click', async e => {
+      e.preventDefault();
+      const list = e.target.closest(".list")
+      const idList = list.dataset.id
+      const indexList = STORE.currBoard.lists.findIndex(l => l.listId == idList);
+      const idCard = e.target.closest(".card").dataset.id
+      const indexCard = STORE.currBoard.lists[indexList].cards.findIndex(c => c.cardId == idCard);;
+
+      await deleteCard(idList, idCard)
+      STORE.currBoard.lists[indexList].cards.splice(indexCard, 1)
+      localStorage.setItem(currBoard, JSON.stringify(STORE.currBoard))
+      DOMHandler.reload()
+    })
+  } )
 }
 
 // listeners for List
@@ -94,6 +117,29 @@ function listenDeleteList() {
   } )
 }
 
+// listener for card
+function listenCreateCard() {
+  const formAll = document.querySelectorAll(".form-card")
+  formAll.forEach(form => {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const list = e.target.closest(".list")
+      const idList = list.dataset.id
+      const index = STORE.currBoard.lists.findIndex(l => l.listId == idList);
+      const newC = {
+        name: e.target.cardName.value
+      }
+      const newCard = await createCard(idList, newC)
+      console.log(newCard);
+      STORE.currBoard.lists[index].cards.push(newCard)
+      localStorage.setItem(currBoard, JSON.stringify(STORE.currBoard))
+      
+      DOMHandler.reload()
+    })
+  })
+  
+}
+
 // listener for header
 function listenHeader() {
   const h1 = document.querySelector("#goLogin")
@@ -108,7 +154,8 @@ const singleBoardPage = {
     return renderSingleBoard();
   },
   addListeners() {
-   listenHeader(),listenCreateList(), listenDeleteList()
+    listenHeader(), listenCreateList(), listenDeleteList(),
+     listenCreateCard(), listenDeleteCard()
   }
 };
 
